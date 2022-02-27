@@ -1,4 +1,5 @@
 const playersDiv = document.getElementById('players-div');
+const playerDetails = document.getElementById('player-details');
 
 const allPlayers = () => {
     const searchBox = document.getElementById('search-box');
@@ -17,7 +18,7 @@ const displayPlayers = (players) => {
         <img class="w-50 rounded-3" src="${player.strThumb}" alt=""> 
         <h3>Name: ${player.strPlayer} </h3>
         <h5>Nationality: ${player.strNationality} </h5>
-        <button class="bg-danger text-white py-2 px-2 position-center">Details</button>
+        <button onclick="loadDetails(${player.idPlayer})" class="bg-danger text-white py-2 px-2 position-center">Details</button>
         <br><br>
         `;
         playersDiv.appendChild(newDiv);
@@ -25,3 +26,25 @@ const displayPlayers = (players) => {
     }
 }
 
+const loadDetails = (id) => {
+    const url2  = `https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=${id}
+    `
+    fetch(url2)
+    .then(res => res.json())
+    .then(data => displayPlayerDetails(data.players[0]));
+    
+}
+
+const displayPlayerDetails = (info) => {
+    console.log(info);
+    const newDiv2 = document.createElement('div');
+    newDiv2.innerHTML = `
+    <img class="w-50 rounded-3" src="${info.strThumb}" alt=""> 
+        <h5>Id: ${info.idPlayer} </h5>
+        <h4>Name: ${info.strPlayer} </h4>
+        <h5>Nationality: ${info.strNationality} </h5>
+        <p>Description: ${info.strDescriptionEN} </p>
+        <br><br>
+    `;
+    playerDetails.appendChild(newDiv2);
+}

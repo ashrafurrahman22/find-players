@@ -1,6 +1,7 @@
 const playersDiv = document.getElementById('players-div');
 const playerDetails = document.getElementById('player-details');
 const newDiv2 = document.createElement('div');
+const newDiv = document.createElement('div');
 
 
 const allPlayers = () => {
@@ -14,12 +15,11 @@ const allPlayers = () => {
     .then(res => res.json())
     .then(data => displayPlayers(data.player))
 }
+        newDiv.textContent = '';
 
 const displayPlayers = (players) => {
     for(const player of players) {
-
-
-        const newDiv = document.createElement('div');
+       
         newDiv.innerHTML = `
         <img class="w-50 rounded-3" src="${player.strThumb}" alt=""> 
         <h3>Name: ${player.strPlayer} </h3>
